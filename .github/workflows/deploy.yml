@@ -3,18 +3,21 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - master  # Use 'master' or 'main' depending on your branch name
+      - master  # or 'main', depending on your branch name
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Updated to v3 to avoid node12 warning
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # Disable credential persistence
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-          commit_message: "Deploy to GitHub Pages"  # Add a commit message for clarity
+          publish_branch: gh-pages  # Explicitly set the branch for GitHub Pages
+          commit_message: "Deploy to GitHub Pages"
