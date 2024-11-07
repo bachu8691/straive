@@ -3,17 +3,18 @@ name: Deploy GitHub Pages
 on:
   push:
     branches:
-      - master  # or 'master', depending on your branch name
+      - master  # Use 'master' or 'main' depending on your branch name
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Updated to v3 to avoid node12 warning
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # This should be the directory you want to publish (root in this case)
+          publish_dir: ./
+          commit_message: "Deploy to GitHub Pages"  # Add a commit message for clarity
